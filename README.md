@@ -13,14 +13,14 @@
 - データセットとアノテーションを手に入れる -- よくわからない場合は、お気軽にお問い合わせください。 [this tutorial](https://github.com/Layout-Parser/layout-parser/tree/main/examples/Customizing%20Layout%20Models%20with%20Label%20Studio%20Annotation). 
 - 設定ファイルとトレーニングスクリプトの複製と修正
     - たとえば、configs/prima/fast_rcnn_R_50_FPN_3x を configs/your-dataset-name/fast_rcnn_R_50_FPN_3x にコピーし、scripts/train_prima.sh に基づいて独自の scripts/train_<your-dataset-name>.sh を作成することができます。
-    - You'll modify the `--dataset_name`, `--json_annotation_train`, `--image_path_train`, `--json_annotation_val`, `--image_path_val`, and `--config-file` args appropriately. 
-- If you have a dataset with segmentation masks, you can try to train with the [`mask_rcnn model`](configs/prima/mask_rcnn_R_50_FPN_3x.yaml); otherwise you might want to start with the [`fast_rcnn model`](configs/prima/fast_rcnn_R_50_FPN_3x.yaml)
-    - If you see error `AttributeError: Cannot find field 'gt_masks' in the given Instances!` during training, this means you should not use 
+    -  `--dataset_name`, `--json_annotation_train`, `--image_path_train`, `--json_annotation_val`, `--image_path_val`, と `--config-file` の argsを適切に変更してください。
+-  セグメンテーションマスクを含むデータセットがある場合は、[`mask_rcnn model`](configs/prima/mask_rcnn_R_50_FPN_3x.yaml) で学習することができます。そうでない場合は、[`fast_rcnn model`](configs/prima/fast_rcnn_R_50_FPN_3x.yaml) で学習することができます。
+    - もし、訓練のときに、このエラー `AttributeError: Cannot find field 'gt_masks' in the given Instances!` を見たら、使うべきではないということです。 
 
 ## 対応データセット
 
-- Prima Layout Analysis Dataset [`scripts/train_prima.sh`](https://github.com/Layout-Parser/layout-model-training/blob/master/scripts/train_prima.sh)
-    - You will need to download the dataset from the [official website](https://www.primaresearch.org/dataset/) and put it in the `data/prima` folder. 
+- Prima Layout Analysis データセット [`scripts/train_prima.sh`](https://github.com/Layout-Parser/layout-model-training/blob/master/scripts/train_prima.sh)
+    - [official website](https://www.primaresearch.org/dataset/) からデータセットをダウンロードし、 `data/prima`　フォルダに入れてください。
     - 元のデータセットは[PAGEフォーマット](https://www.primaresearch.org/tools/PAGEViewer)で保存されているので、スクリプトは[`tools/convert_prima_to_coco.py`](https://github.com/Layout-Parser/layout-model-training/blob/master/tools/convert_prima_to_coco.py)を使ってCOCOフォーマットに変換する。
     - 最終的なデータセットのフォルダ構造は次のようになります。:
         ```bash
